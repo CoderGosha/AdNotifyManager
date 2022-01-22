@@ -1,3 +1,6 @@
 django==4.0
 djangorestframework
 django-rest-swagger
+channels
+django-q
+python-telegram-bot==13.1

@@ -6,10 +6,11 @@ from django.db import models
 from AdNotifyManager.models import QueryLink
 
 
-class Subscriber(models.Model):
-    class SubscriberChannelType(models.IntegerChoices):
-        Telegram = 1
+class SubscriberChannelType(models.IntegerChoices):
+    Telegram = 1
 
+
+class Subscriber(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     data_create = models.DateTimeField(default=datetime.min)
     data_expired = models.DateTimeField(default=datetime.min, blank=True, null=True)

@@ -1,5 +1,6 @@
 import datetime
 
+from django_q.tasks import async_task
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -7,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from AdNotifyManager.api.serializers import GoodsRequestSerializer
-from AdNotifyManager.models import Goods
+from AdNotifyManager.models import Goods, Subscriber, SubscriberChannelType
 
 
 class GoodsView(APIView):
@@ -28,4 +29,9 @@ class GoodsView(APIView):
 
             data_create = datetime.datetime.now()
             goods = serialazer.save(data_create=data_create)
+
+            async_task('AdNotifyManager.tasks.send_goods', goods)
+
             return Response({"success": "Ok", "id": goods.id}, status=status.HTTP_201_CREATED)
+
+
