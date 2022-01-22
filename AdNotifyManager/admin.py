@@ -27,7 +27,7 @@ class SubscriberAdmin(admin.ModelAdmin):
 class GoodsAdmin(admin.ModelAdmin):
     model = Goods
     list_per_page = 10  # No of records per page
-    list_display = ('name', 'cost', 'locate', 'success')
+    list_display = ('name', 'cost', 'locate')
     list_filter = ('query_link',)
     ordering = ('-data_create',)
     search_fields = ('name',)

@@ -1,0 +1,27 @@
+###
+GET http://localhost:8000/api/ping/
+Accept: */*
+Cache-Control: no-cache
+Authorization: Token {{token}}
+
+###
+
+POST http://localhost:8000/api/goods/
+Authorization: Token {{token}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "TestGoods",
+  "cost": "0.1",
+  "query_link": "23ebfc7f-da8c-45bd-b77f-966e26bf1246",
+  "external_id": "http://get.com/4",
+  "goods_url": "http://get.com/4"
+
+}
+
+###
+GET http://localhost:8000/api/token?name=CG.Notify.Telegram
+Accept: application/json
+Authorization: Token {{token}}
+

@@ -15,8 +15,8 @@ class QueryLink(models.Model):
         ordering = ['-data_create']
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    data_create = models.DateTimeField(default=datetime.now())
-    data_expired = models.DateTimeField(default=datetime.now(), blank=True, null=True)
+    data_create = models.DateTimeField(default=datetime.min)
+    data_expired = models.DateTimeField(default=datetime.min, blank=True, null=True)
     query_link_type = models.IntegerField(
         choices=QueryLinkType.choices,
         default=QueryLinkType.Base,

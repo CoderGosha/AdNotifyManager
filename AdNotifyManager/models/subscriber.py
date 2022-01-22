@@ -11,8 +11,8 @@ class Subscriber(models.Model):
         Telegram = 1
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    data_create = models.DateTimeField(default=datetime.now())
-    data_expired = models.DateTimeField(default=datetime.now(), blank=True, null=True)
+    data_create = models.DateTimeField(default=datetime.min)
+    data_expired = models.DateTimeField(default=datetime.min, blank=True, null=True)
     name = models.CharField(max_length=50, blank=True)
     channel_id = models.CharField(max_length=50, blank=True)
     subscriber_channel_type = models.IntegerField(
