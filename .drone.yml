@@ -7,17 +7,17 @@ platform:
   arch: amd64
 
 steps:
-  - name: setup env
-    environment:
-      TELEGRAM_BOT:
-        from_secret: TELEGRAM_BOT
-      commands:
-        - echo "$TELEGRAM_BOT" > .env.example
-        - sed -i 's/YOUR_TELEGRAM_TOKEN/$TELEGRAM_BOT/g' .env.example
-        - cp .env.example .env.prod
+- name: setup env
+  environment:
+    TELEGRAM_BOT:
+      from_secret: TELEGRAM_BOT
+  commands:
+  - echo "$TELEGRAM_BOT" > .env.example ;
+  - sed -i 's/YOUR_TELEGRAM_TOKEN/$TELEGRAM_BOT/g' .env.example ;
+  - cp .env.example .env.prod ;
 
 
-  - name: build and run
-    commands:
-      - docker-compose -f docker-compose.yml up -d --build
+- name: build and run
+  commands:
+  - docker-compose -f docker-compose.yml up -d --build ;
 
