@@ -2,3 +2,4 @@
 /do_migration.cmd
 __pycache__
 /RespApi/http-client.private.env.json
+/.env.prod

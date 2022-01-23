@@ -10,7 +10,7 @@ def send_goods(g: Goods):
     telegram_bot = getattr(settings, "TELEGRAM_BOT", None)
     if telegram_bot is None:
         raise Exception("Telegram token not found")
-    
+
     bot = telegram.Bot(telegram_bot)
     subs = Subscriber.objects.filter(query_link=g.query_link).all()
     for s in subs:

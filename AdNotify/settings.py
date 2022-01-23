@@ -171,10 +171,10 @@ LOGOUT_URL = 'rest_framework:logout'
 
 Q_CLUSTER = {
     'name': 'DjangORM',
-    'workers': 4,
+    'workers': 1,
     'timeout': 90,
     'retry': 120,
-    'queue_limit': 50,
+    'queue_limit': 100,
     'bulk': 10,
     'orm': 'default'
 }

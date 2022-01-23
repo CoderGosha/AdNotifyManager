@@ -15,7 +15,7 @@ Content-Type: application/json
   "name": "TestGoods",
   "cost": "0.1",
   "query_link": "23ebfc7f-da8c-45bd-b77f-966e26bf1246",
-  "external_id": "http://get.com/31",
+  "external_id": "http://get.com/35",
   "goods_url": "http://get.com/5"
 
 }
