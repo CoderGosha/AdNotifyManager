@@ -1,8 +1,12 @@
 ###
-GET {{ url }}/api/ping/
+POST {{ url }}/api/ping/
 Accept: */*
 Cache-Control: no-cache
 Authorization: Token {{token}}
+
+{
+  "name": "TEST.Node1"
+}
 
 ###
 
@@ -15,7 +19,7 @@ Content-Type: application/json
   "name": "TestGoods",
   "cost": "0.1",
   "query_link": "a0db6793-52e2-4705-97e1-8664a6fa3601",
-  "external_id": "http://get.com/44",
+  "external_id": "http://get.com/45",
   "goods_url": "http://get.com/5"
 
 }

@@ -1,6 +1,8 @@
+from datetime import datetime
+
 from rest_framework import serializers
 
-from AdNotifyManager.models import Goods, QueryLink
+from AdNotifyManager.models import Goods, QueryLink, Node
 
 
 class GoodsRequestSerializer(serializers.ModelSerializer):
@@ -23,3 +25,16 @@ class QueryLinkItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = QueryLink
         fields = ['id', 'query_link_type', 'url', 'filter_locate', 'name']
+
+
+class PingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Node
+        fields = ['name']
+
+    def create(self, validated_data):
+        return Node.objects.create(**validated_data, last_connect=datetime.now())
+
+    def update(self, instance, validated_data):
+        instance.last_connect = datetime.now()
+        return instance
