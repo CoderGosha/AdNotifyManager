@@ -23,7 +23,8 @@ class GoodsView(APIView):
         if serialazer.is_valid(raise_exception=True):
 
             pk = self.request.data["external_id"]
-            goods = Goods.objects.filter(external_id=pk).first()
+            query_id = self.request.data["query_link"]
+            goods = Goods.objects.filter(external_id=pk).filter(query_link__id=query_id).first()
             if goods is not None:
                 return Response({"success": "Ok"}, status=status.HTTP_200_OK)
 
