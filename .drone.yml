@@ -12,7 +12,7 @@ steps:
     TELEGRAM_BOT:
       from_secret: TELEGRAM_BOT
   commands:
-  - echo "$TELEGRAM_BOT" > .env.example ;
+  - echo $TELEGRAM_BOT >> .env.example ;
   - sed -i 's/YOUR_TELEGRAM_TOKEN/$TELEGRAM_BOT/g' .env.example ;
   - cp .env.example .env.prod ;
   - cat .env.prod
