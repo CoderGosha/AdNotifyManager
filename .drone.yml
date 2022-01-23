@@ -17,7 +17,7 @@ steps:
   - sed -i 's/CSRF_COOKIE_DOMAIN=CSRF_COOKIE_DOMAIN//g' .env.example ;
   - echo CSRF_COOKIE_DOMAIN=*.cg-bot.ru >> .env.example ;
   - sed -i 's/CSRF_TRUSTED_ORIGINS=\[\]//g' .env.example ;
-  - echo CSRF_TRUSTED_ORIGINS=['https://adnotify.cg-bot.ru'] >> .env.example ;
+  - echo CSRF_TRUSTED_ORIGINS=[\'https://adnotify.cg-bot.ru\'] >> .env.example ;
   - cp .env.example .env.prod ;
   - cat .env.prod
 
