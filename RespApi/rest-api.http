@@ -15,13 +15,18 @@ Content-Type: application/json
   "name": "TestGoods",
   "cost": "0.1",
   "query_link": "8222062d-87a2-4c1f-b587-669101436fd9",
-  "external_id": "http://get.com/41",
+  "external_id": "http://get.com/42",
   "goods_url": "http://get.com/5"
 
 }
 
 ###
 GET {{ url }}/api/token?name=CG.Notify.Telegram
+Accept: application/json
+Authorization: Token {{token}}
+
+###
+GET {{ url }}/api/link?name=Test.Node
 Accept: application/json
 Authorization: Token {{token}}
 

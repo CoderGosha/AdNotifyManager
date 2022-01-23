@@ -1,1 +1,2 @@
 from AdNotifyManager.views.admin_view import TokenView
+from AdNotifyManager.views.query_link_view import QueryLinkView

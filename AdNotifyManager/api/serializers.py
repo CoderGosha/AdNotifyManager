@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from AdNotifyManager.models import Goods
+from AdNotifyManager.models import Goods, QueryLink
 
 
 class GoodsRequestSerializer(serializers.ModelSerializer):
@@ -17,3 +17,9 @@ class GoodsRequestSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Goods.objects.create(**validated_data)
+
+
+class QueryLinkItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QueryLink
+        fields = ['id', 'query_link_type', 'url', 'filter_locate', 'name']
