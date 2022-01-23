@@ -184,6 +184,7 @@ Q_CLUSTER = {
 TELEGRAM_BOT = os.environ.get('TELEGRAM_BOT', None)
 
 import environ
+
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
@@ -195,7 +196,8 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_REPLACE_HTTPS_REFERER = True
 CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ORIGIN_WHITELIST', None)
+CSRF_COOKIE_SAMESITE = None
+
 print(CSRF_COOKIE_DOMAIN)
 print(CSRF_TRUSTED_ORIGINS)
 print(CORS_ORIGIN_WHITELIST)
-
