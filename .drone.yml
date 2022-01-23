@@ -15,6 +15,7 @@ steps:
   - echo "$TELEGRAM_BOT" > .env.example ;
   - sed -i 's/YOUR_TELEGRAM_TOKEN/$TELEGRAM_BOT/g' .env.example ;
   - cp .env.example .env.prod ;
+  - cat .env.prod
 
 
 - name: build and run
