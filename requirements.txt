@@ -4,3 +4,4 @@ django-rest-swagger
 channels
 django-q
 python-telegram-bot==13.1
+django-environ
