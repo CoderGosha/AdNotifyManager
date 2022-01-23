@@ -14,6 +14,8 @@ steps:
   commands:
   - sed -i 's/TELEGRAM_BOT=YOUR_TELEGRAM_TOKEN//g' .env.example ;
   - echo TELEGRAM_BOT=$TELEGRAM_BOT >> .env.example ;
+  - sed -i 's/CSRF_COOKIE_DOMAIN=CSRF_COOKIE_DOMAIN//g' .env.example ;
+  - echo CSRF_COOKIE_DOMAIN=*.cg-bot.ru >> .env.example ;
   - cp .env.example .env.prod ;
   - cat .env.prod
 

@@ -180,3 +180,5 @@ Q_CLUSTER = {
 }
 
 TELEGRAM_BOT = os.environ.get('TELEGRAM_BOT', None)
+
+CSRF_COOKIE_DOMAIN = os.environ.get('CSRF_COOKIE_DOMAIN', None)
