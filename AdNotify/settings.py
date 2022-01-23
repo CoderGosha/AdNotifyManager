@@ -182,3 +182,4 @@ Q_CLUSTER = {
 TELEGRAM_BOT = os.environ.get('TELEGRAM_BOT', None)
 
 CSRF_COOKIE_DOMAIN = os.environ.get('CSRF_COOKIE_DOMAIN', None)
+CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', [])
