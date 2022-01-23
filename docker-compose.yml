@@ -11,7 +11,7 @@ services:
       - staticfiles:/app/staticfiles
       - db:/app/db
     ports:
-      - 8000:8000
+      - 8000:8020
     env_file:
       - ./.env.prod
 

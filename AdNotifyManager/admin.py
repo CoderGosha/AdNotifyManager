@@ -50,3 +50,6 @@ admin.site.register(Node, NodeAdmin)
 admin.site.register(Goods, GoodsAdmin)
 admin.site.register(Subscriber, SubscriberAdmin)
 admin.site.register(QueryLink, QueryLinkAdmin)
+
+admin.site.site_header = 'Ad Notify Manager'
+

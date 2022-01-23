@@ -1,12 +1,12 @@
 ###
-GET http://localhost:8000/api/ping/
+GET {{ url }}/api/ping/
 Accept: */*
 Cache-Control: no-cache
 Authorization: Token {{token}}
 
 ###
 
-POST http://localhost:8000/api/goods/
+POST {{ url }}/api/goods/
 Authorization: Token {{token}}
 Accept: application/json
 Content-Type: application/json
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/api/token?name=CG.Notify.Telegram
+GET {{ url }}/api/token?name=CG.Notify.Telegram
 Accept: application/json
 Authorization: Token {{token}}
 

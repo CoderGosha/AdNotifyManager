@@ -1,7 +1,7 @@
 FROM python:3 AS runtime
 WORKDIR /app
 COPY . .
-RUN dir /app
+
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
