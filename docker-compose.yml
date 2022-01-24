@@ -23,6 +23,14 @@ services:
     command: python app.py
     env_file:
       - ./.env.node.prod
+    deploy:
+      resources:
+        limits:
+          cpus: 0.3
+          memory: 350M
+        reservations:
+          cpus: 0.1
+          memory: 150M
 
 volumes:
   staticfiles:
