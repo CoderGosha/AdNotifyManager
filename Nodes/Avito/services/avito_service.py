@@ -5,6 +5,8 @@ import uuid
 from asyncio import Queue
 from typing import List
 
+from selenium.webdriver.common.by import By
+
 from models.goods import Goods
 from services.avito_block_service import AvitoBlockService
 from services.request_service import RequestService
@@ -56,7 +58,7 @@ class AvitoService:
         try:
             driver = await self.request_service.get(query_link['url'], tmp_file)
             try:
-                driver.find_element_by_class_name("icon-forbidden")
+                driver.find_element(By.CLASS_NAME, "icon-forbidden")
                 self.block_service.add_block()
                 return []
             except:
@@ -64,11 +66,11 @@ class AvitoService:
             # HACK
             wight = None
 
-            for entry in driver.find_elements_by_xpath('//div[@itemtype="http://schema.org/Product"]'):
-                link = entry.find_element_by_xpath('.//a[@itemprop="url"]').get_attribute("href")
-                description = entry.find_element_by_xpath('.//meta[@itemprop="description"]').get_attribute("content")
-                price = entry.find_element_by_xpath('.//span[@itemtype="http://schema.org/Offer"]').text
-                name = entry.find_element_by_xpath('.//h3[@itemprop="name"]').text
+            for entry in driver.find_elements(By.XPATH, '//div[@itemtype="http://schema.org/Product"]'):
+                link = entry.find_element(By.XPATH, './/a[@itemprop="url"]').get_attribute("href")
+                description = entry.find_element(By.XPATH, './/meta[@itemprop="description"]').get_attribute("content")
+                price = entry.find_element(By.XPATH, './/span[@itemtype="http://schema.org/Offer"]').text
+                name = entry.find_element(By.XPATH, './/h3[@itemprop="name"]').text
                 if not wight:
                     wight = entry.size["width"]
                 if wight != entry.size["width"]:
