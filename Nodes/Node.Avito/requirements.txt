@@ -1,1 +1,4 @@
 requests
+asyncio
+selenium
+webdriver_manager

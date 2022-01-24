@@ -15,22 +15,28 @@ class NodeWorker(BaseWorker):
     def __init__(self, api_url, api_key, name):
         super().__init__(api_url, api_key, name)
         self.parser = AvitoService()
+        self.hour_begin = os.environ.get('HOUR_BEGIN', -1)
+        self.hour_end = os.environ.get('HOUR_END', -1)
+        self.timeout_periodic = os.environ.get('PERIODIC_MINUTES', 1)
+        logging.info(
+            f"Staring node: {self.name} with periodic: {self.timeout_periodic} minutes, {self.hour_begin}/{self.hour_end}")
 
     def start(self):
         super().start()
         self.do_main_work()
-        
+
     def do_main_work(self):
         while True:
             try:
-                links = self.get_query_link()
-                goods = self.parser.get_data(links)
-                self.send_goods(goods)
+                if self.is_work_time():
+                    links = self.get_query_link()
+                    goods = self.parser.get_data(links)
+                    self.send_goods(goods)
             except Exception as ex:
                 self.increment_error()
                 logging.error(ex)
             finally:
-                time.sleep(self.timeout)
+                time.sleep(self.timeout_periodic * 60)
 
     def get_query_link(self):
         result = requests.get(self.api_url + "api/link", headers={'Authorization': f'Token {self.api_key}'},
@@ -54,3 +60,12 @@ class NodeWorker(BaseWorker):
                 self.increment_error()
                 msg = f"Code: {result.status_code}, {result.text}"
                 logging.info(msg)
+
+    def is_work_time(self):
+        if self.hour_begin == -1 or self.hour_end == -1:
+            return True
+
+        current_time = datetime.datetime.utcnow()
+        if (current_time.hour >= self.hour_begin) and (current_time.hour < self.hour_end):
+            return True
+        return False

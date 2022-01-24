@@ -4,3 +4,4 @@ __pycache__
 /RespApi/http-client.private.env.json
 /.env.prod
 /Nodes/Node.Avito/log
+/Nodes/Node.Avito/geckodriver.log

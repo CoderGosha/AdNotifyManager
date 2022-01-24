@@ -16,7 +16,7 @@ class Goods(models.Model):
     data_create = models.DateTimeField(default=datetime.min)
     name = models.CharField(max_length=50)
     cost = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=1200)
     locate = models.CharField(max_length=50, blank=True, null=True)
     query_link = models.ForeignKey(QueryLink, on_delete=models.SET_NULL, blank=True, null=True)
     goods_url = models.CharField(max_length=250, blank=True, null=True)
