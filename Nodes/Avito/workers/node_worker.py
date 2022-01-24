@@ -15,9 +15,9 @@ class NodeWorker(BaseWorker):
     def __init__(self, api_url, api_key, name):
         super().__init__(api_url, api_key, name)
         self.parser = AvitoService()
-        self.hour_begin = os.environ.get('HOUR_BEGIN', -1)
-        self.hour_end = os.environ.get('HOUR_END', -1)
-        self.timeout_periodic = os.environ.get('PERIODIC_MINUTES', 1)
+        self.hour_begin = int(os.environ.get('HOUR_BEGIN', -1))
+        self.hour_end = int(os.environ.get('HOUR_END', -1))
+        self.timeout_periodic = int(os.environ.get('PERIODIC_MINUTES', 1))
         logging.info(
             f"Staring node: {self.name} with periodic: {self.timeout_periodic} minutes, {self.hour_begin}/{self.hour_end}")
 

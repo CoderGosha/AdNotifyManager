@@ -15,6 +15,15 @@ services:
     env_file:
       - ./.env.prod
 
+  node:
+    container_name: AdNotifyNodeAvito
+    build:
+      context: ./Nodes/Avito
+      dockerfile: Dockerfile
+    command: python app.py
+    env_file:
+      - ./.env.node.prod
+
 volumes:
   staticfiles:
   db:

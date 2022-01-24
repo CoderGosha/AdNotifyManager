@@ -37,7 +37,7 @@ steps:
     - sed -i 's/NAME=NAME/NAME=CG.Node.Avito/g' .env.node.example ;
     - sed -i 's/PROVIDER=LOCAL/PROVIDER=COMMUNICATOR/g' .env.node.example ;
     - echo  >> .env.node.example ;
-    - echo \nPROVIDER_API_KEY=$PROVIDER_API_KEY >> .env.node.example ;
+    - echo PROVIDER_API_KEY=$PROVIDER_API_KEY >> .env.node.example ;
     - echo PROVIDER_API_URL=$PROVIDER_API_URL >> .env.node.example ;
     - echo API_KEY=$API_KEY >> .env.node.example ;
     - echo API_URL=https://adnotify.cg-bot.ru/ >> .env.node.example ;
@@ -46,5 +46,5 @@ steps:
 
 - name: build and run
   commands:
-  - docker-compose -f docker-compose.yml up -d --build ;
+  - docker-compose -f docker-compose.yml up -d --build
 

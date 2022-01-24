@@ -5,3 +5,6 @@ __pycache__
 /.env.prod
 /Nodes/Node.Avito/log
 /Nodes/Node.Avito/geckodriver.log
+/.env.node.prod
+/Nodes/Avito/log
+/Nodes/Avito/geckodriver.log
