@@ -23,6 +23,24 @@ steps:
   - cp .env.example .env.prod ;
   - cat .env.prod
 
+- name: setup env node
+  environment:
+    API_KEY:
+      from_secret: NODE.API_KEY
+    PROVIDER_API_KEY:
+      from_secret: NODE.PROVIDER_API_KEY
+    PROVIDER_API_URL:
+      from_secret: NODE.PROVIDER_API_URL
+
+  commands:
+    - sed -i 's/API_URL=API_URL/API_URL=https:\/\/adnotify.cg-bot.ru\//g' .env.example ;
+    - sed -i 's/NAME=NAME/CG.Node.Avito/g' .env.example ;
+    - sed -i 's/PROVIDER=LOCAL/PROVIDER=COMMUNICATOR/g' .env.example ;
+    - echo PROVIDER_API_KEY=PROVIDER_API_KEY >> .env.example ;
+    - echo PROVIDER_API_URL=PROVIDER_API_URL >> .env.example ;
+    - echo API_KEY=API_KEY >> .env.example ;
+    - cp .env.node.example .env.node.prod ;
+    - cat .env.node.prod
 
 - name: build and run
   commands:
