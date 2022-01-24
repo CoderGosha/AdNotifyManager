@@ -47,6 +47,7 @@ class NodeWorker(BaseWorker):
             self.increment_error()
             msg = f"Code: {result.status_code}, {result.text}"
             logging.info(msg)
+        return []
 
     def send_goods(self, goods):
         for g in goods:
