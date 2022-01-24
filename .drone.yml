@@ -46,5 +46,5 @@ steps:
 
 - name: build and run
   commands:
-  - docker-compose -f docker-compose.yml up -d --build
+  - docker-compose -f docker-compose.yml --compatibility up -d --build
 
