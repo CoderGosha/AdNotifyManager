@@ -13,6 +13,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 from selenium import webdriver
 
 # from provider.communicator_provider import CommunicatorProvider
+from provider.communicator_provider import CommunicatorProvider
 
 
 def _firefox_options_():
@@ -24,15 +25,14 @@ def _firefox_options_():
 
 
 class RequestService:
-    #     driver = webdriver.Chrome(ChromeDriverManager().install(), options=_chrome_options_())
-    driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=_firefox_options_())
     init_browser = False
     init_provider = False
 
     def __init__(self):
-        self.provider = "LOCAL" #self.configuration.config['PROVIDER']['TYPE']
+        self.provider = os.environ.get("PROVIDER", "LOCAL")
 
     def __init_browser__(self):
+        self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=_firefox_options_())
         import logging
         from selenium.webdriver.remote.remote_connection import LOGGER
         LOGGER.setLevel(logging.INFO)
@@ -41,17 +41,22 @@ class RequestService:
         self.driver.implicitly_wait(10)
 
         # self.proxy = configuration.config['PROXY']
+
     def __init_provider__(self):
         if self.provider == "LOCAL":
             pass
 
         elif self.provider == 'COMMUNICATOR':
-            # api_key = self.configuration.config['PROVIDER']['COMMUNICATOR']['API_KEY']
-            # api_url = self.configuration.config['PROVIDER']['COMMUNICATOR']['API_URL']
-            # self.communicator_provider = CommunicatorProvider(api_url, api_key)
+            api_key = os.environ.get("PROVIDER_API_KEY", None)
+            api_url = os.environ.get("PROVIDER_API_URL", None)
+            if api_key is None or api_url is None:
+                logging.error(f"Provider PROVIDER_API_KEY: {api_key} or PROVIDER_API_URL: {api_url} is None:")
+                os._exit(1)
+
+            self.communicator_provider = CommunicatorProvider(api_url, api_key)
             pass
 
-    def get(self, url) -> WebDriver:
+    async def get(self, url, tmp_file=None) -> WebDriver:
         if not self.init_browser:
             self.__init_browser__()
 
@@ -61,15 +66,15 @@ class RequestService:
         if self.provider == "LOCAL":
             self.driver.get(url)
         elif self.provider == 'COMMUNICATOR':
-            # response, status = self.communicator_provider.request_get(url)
-            #tmp_file = os.path.join(os.getcwd(), "tmp.html")
-            #with open(tmp_file, "w", encoding="utf-8") as text_file:
-            #    text_file.write(response)
-            #if status:
-            #    self.driver.get("file://" + tmp_file)
-            #else:
-            #    raise Exception(response)
-            #logging.debug(response)
+            response, status = await self.communicator_provider.request_get(url)
+            tmp_file = os.path.join(os.getcwd(), tmp_file)
+            with open(tmp_file, "w", encoding="utf-8") as text_file:
+                text_file.write(response)
+            if status:
+                self.driver.get("file://" + tmp_file)
+            else:
+                raise Exception(response)
+            logging.debug(response)
             pass
         else:
             logging.error(f"Unknown provider: {self.provider}")
@@ -77,3 +82,8 @@ class RequestService:
 
         return self.driver
 
+    def temp_clean(self, tmp_file=None):
+        if tmp_file is None:
+            return
+        if os.path.isfile(os.path.join(os.getcwd(), tmp_file)):
+            os.remove(os.path.join(os.getcwd(), tmp_file))

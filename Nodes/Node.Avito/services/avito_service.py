@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import time
+import uuid
 from asyncio import Queue
 from typing import List
 
@@ -14,6 +15,15 @@ class AvitoService:
         self.request_service = RequestService()
         self.block_service = AvitoBlockService()
         self.goods_cache = []
+
+    def is_cache(self, g):
+        key = g.external_id + g.goods_url
+        if key in self.goods_cache:
+            return True
+        self.goods_cache.append(key)
+        if len(self.goods_cache) > 1000:
+            del self.goods_cache[:100]
+        return False
 
     def get_data(self, links) -> List[Goods]:
         ioloop = asyncio.get_event_loop()
@@ -42,9 +52,9 @@ class AvitoService:
     async def a_prasing_link(self, query_link) -> List[Goods]:
         goods = []
         count_element = 0
+        tmp_file = str(uuid.uuid4())
         try:
-            # TODO async
-            driver = self.request_service.get(query_link['url'])
+            driver = await self.request_service.get(query_link['url'], tmp_file)
             try:
                 driver.find_element_by_class_name("icon-forbidden")
                 self.block_service.add_block()
@@ -80,16 +90,8 @@ class AvitoService:
             logging.error(ex)
 
         finally:
-            pass
+            self.request_service.temp_clean(tmp_file)
 
         logging.info('Parsing completed: %s - %i' % (query_link['url'], len(goods)))
         return goods
 
-    def is_cache(self, g):
-        key = g.external_id + g.goods_url
-        if key in self.goods_cache:
-            return True
-        self.goods_cache.append(key)
-        if len(self.goods_cache) > 1000:
-            del self.goods_cache[:100]
-        return False
