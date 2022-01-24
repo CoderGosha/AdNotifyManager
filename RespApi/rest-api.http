@@ -25,7 +25,7 @@ Content-Type: application/json
 }
 
 ###
-GET {{ url }}/api/token?name=CG.Notify.Telegram
+GET {{ url }}/api/token?name=CGBot.Node.Avito
 Accept: application/json
 Authorization: Token {{token}}
 
