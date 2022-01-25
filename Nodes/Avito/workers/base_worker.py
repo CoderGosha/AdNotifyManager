@@ -4,8 +4,6 @@ import os
 import threading
 import time
 import requests
-from rich.console import Console
-from rich import print, console
 
 
 class BaseWorker:
