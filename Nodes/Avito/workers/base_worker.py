@@ -4,6 +4,8 @@ import os
 import threading
 import time
 import requests
+from rich.console import Console
+from rich import print, console
 
 
 class BaseWorker:
@@ -28,7 +30,7 @@ class BaseWorker:
         while True:
             try:
                 self.ping()
-
+                self.console_status()
             except Exception as ex:
                 self.increment_error()
                 logging.error(ex)
@@ -61,8 +63,13 @@ class BaseWorker:
                                json={'name': self.name})
         if result.status_code == 200:
             self.timeout = self.timeout_default
+
             return
         else:
             self.increment_error()
             msg = f"Code: {result.status_code}, {result.text}"
             logging.info(msg)
+
+    def console_status(self):
+        pass
+

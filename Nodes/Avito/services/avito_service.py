@@ -75,7 +75,7 @@ class AvitoService:
                     wight = entry.size["width"]
                 if wight != entry.size["width"]:
                     #
-                    logging.info(f"Skip: {link}")
+                    logging.debug(f"Skip: {link}")
                     continue
 
                 if len(link) > 1:
@@ -94,6 +94,7 @@ class AvitoService:
         finally:
             self.request_service.temp_clean(tmp_file)
 
-        logging.info('Parsing completed: %s - %i' % (query_link['url'], len(goods)))
+        logging.info('Completed: %s - %i' % (query_link['url'], len(goods)))
+        # self.console.print("[bold cyan]Completed:[/bold cyan]", query_link['url'], "-",
+        #                   f"[bold cyan] {len(goods)} [/bold cyan]")
         return goods
-

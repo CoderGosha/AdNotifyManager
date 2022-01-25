@@ -54,9 +54,9 @@ class NodeWorker(BaseWorker):
             result = requests.post(self.api_url + "api/goods/", headers={'Authorization': f'Token {self.api_key}'},
                                    json=g.__dict__)
             if result.status_code == 200:
-                logging.info(f"Processing message: {g} - OK")
+                logging.debug(f"Processing message: {g} - OK")
             elif result.status_code == 201:
-                logging.info(f"Processing message: {g} - Create ok")
+                logging.debug(f"Processing message: {g} - Create ok")
             else:
                 self.increment_error()
                 msg = f"Code: {result.status_code}, {result.text}"

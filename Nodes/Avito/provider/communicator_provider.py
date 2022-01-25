@@ -21,7 +21,7 @@ class CommunicatorProvider:
             msg = f"Code: {result.status_code}, {result.text}"
             return msg, False
 
-        logging.info(f"Processing request: {request} - {result.json()}")
+        logging.debug(f"Processing request: {request} - {result.json()}")
         event_id = result.json()['id']
         date_time_start = datetime.datetime.now()
         timeout = date_time_start + datetime.timedelta(minutes=self.timeout_minutes)
