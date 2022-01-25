@@ -39,6 +39,7 @@ class RequestService:
         self.driver.set_page_load_timeout(300)
         self.driver.set_script_timeout(10)
         self.driver.implicitly_wait(10)
+        self.init_browser = True
 
         # self.proxy = configuration.config['PROXY']
 
@@ -55,6 +56,7 @@ class RequestService:
 
             self.communicator_provider = CommunicatorProvider(api_url, api_key)
             pass
+        self.init_provider = True
 
     async def get(self, url, tmp_file=None) -> WebDriver:
         if not self.init_browser:
