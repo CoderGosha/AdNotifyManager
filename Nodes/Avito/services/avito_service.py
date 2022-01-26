@@ -55,6 +55,9 @@ class AvitoService:
         goods = []
         count_element = 0
         tmp_file = str(uuid.uuid4())
+        filters_url = query_link['filter_url'].replace(" ", "").split(";")
+        filters_url.remove("")
+
         try:
             driver = await self.request_service.get(query_link['url'], tmp_file)
             try:
@@ -82,6 +85,8 @@ class AvitoService:
                     link = link.replace('file:///', 'https://avito.ru/')
                     g = Goods(link, name, query_link=query_link["id"], goods_url=link, cost=price,
                               description=description, locate='')
+                    if self.is_filter_url(link, filters_url):
+                        continue
                     if not self.is_cache(g):
                         goods.append(g)
                     count_element += 1
@@ -98,3 +103,11 @@ class AvitoService:
         # self.console.print("[bold cyan]Completed:[/bold cyan]", query_link['url'], "-",
         #                   f"[bold cyan] {len(goods)} [/bold cyan]")
         return goods
+
+    def is_filter_url(self, link, filters_url):
+        for f in filters_url:
+            if f.strip() is not None and f.strip() != "":
+                if link.find(f.strip()) != -1:
+                    return True
+
+        return False
