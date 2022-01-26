@@ -25,6 +25,7 @@ class QueryLink(models.Model):
     url = models.CharField(max_length=300)
     node = models.ForeignKey(Node, on_delete=models.SET_NULL, blank=True, null=True)
     filter_locate = models.CharField(max_length=300, blank=True)
+    filter_url = models.CharField(max_length=300, blank=True)
 
     def __str__(self):
         return f'{self.name}'

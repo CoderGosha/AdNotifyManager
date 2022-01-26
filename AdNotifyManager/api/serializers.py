@@ -24,7 +24,7 @@ class GoodsRequestSerializer(serializers.ModelSerializer):
 class QueryLinkItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = QueryLink
-        fields = ['id', 'query_link_type', 'url', 'filter_locate', 'name']
+        fields = ['id', 'name', 'query_link_type', 'url', 'filter_locate', 'filter_url']
 
 
 class PingSerializer(serializers.ModelSerializer):
